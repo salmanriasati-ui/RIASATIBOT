@@ -23,8 +23,11 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 # ============================================================
 # CONFIG
 # ============================================================
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "").strip()
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+
+print(f"TOKEN starts with: {TELEGRAM_TOKEN[:10] if TELEGRAM_TOKEN else 'EMPTY!'}")
+print(f"API KEY starts with: {ANTHROPIC_API_KEY[:15] if ANTHROPIC_API_KEY else 'EMPTY!'}")
 EXCEL_FILE = "IRANFLY_tickets.xlsx"
 TEMPLATE_FILE = "IRANFLY_TEMPLATE_v1.html"
 PDF_PASSWORD = "IRANFLY2025"
