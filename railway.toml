@@ -6,8 +6,3 @@ buildCommand = "pip install -r requirements.txt && playwright install chromium -
 startCommand = "python iranfly_bot.py"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
-
-[services.userbot]
-startCommand = "python userbot_scheduler.py"
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 3
