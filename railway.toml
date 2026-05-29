@@ -2,7 +2,12 @@
 builder = "NIXPACKS"
 buildCommand = "pip install -r requirements.txt && playwright install chromium --with-deps"
 
-[deploy]
+[services.iranfly]
 startCommand = "python iranfly_bot.py"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[services.userbot]
+startCommand = "python userbot_scheduler.py"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
