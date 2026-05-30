@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fly Ticket</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background:#FAFAE0;
+    font-family:'Montserrat',sans-serif;
+    display:flex; justify-content:center;
+    padding:20px;
+  }
+
+  .ticket {
+    width:210mm;
+    min-height:297mm;
+    background:#FAFAE0;
+    padding:10mm 14mm;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+
+  .header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:3mm;
+  }
+  .agency-name {
+    font-size:10pt;
+    font-weight:700;
+    color:#1A3A6B;
+    letter-spacing:.5px;
+  }
+  .logo img {
+    height:33mm;
+    width:auto;
+  }
+
+  .divider {
+    border:none;
+    border-top:2px solid #1A3A6B;
+    margin-bottom:3mm;
+  }
+  .divider-dashed {
+    border:none;
+    border-top:1.5px dashed #AAAAAA;
+    margin:3mm 0;
+  }
+
+  .passenger-row {
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:2.5mm;
+  }
+  .pax-block label {
+    font-size:7pt;
+    color:#888;
+    display:block;
+    margin-bottom:1mm;
+    font-family:'Noto Naskh Arabic',serif;
+  }
+  .pax-block strong {
+    font-size:10.5pt;
+    font-weight:700;
+    color:#111;
+    letter-spacing:.3px;
+  }
+
+  .flight-card {
+    background:#1A3A6B;
+    border-radius:4mm;
+    overflow:hidden;
+    margin-bottom:4mm;
+  }
+  .card-header {
+    background:#F5A623;
+    padding:2.5mm 5mm;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .card-header span {
+    color:#fff;
+    font-size:8.5pt;
+    font-weight:700;
+    letter-spacing:.5px;
+  }
+  .card-body {
+    padding:3mm 7mm 0;
+  }
+  .route-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:3mm;
+  }
+  .airport {
+    display:flex;
+    flex-direction:column;
+  }
+  .airport .iata {
+    font-size:26pt;
+    font-weight:800;
+    color:#fff;
+    line-height:1;
+  }
+  .airport .apt-name {
+    font-size:6.5pt;
+    color:#D0E4F4;
+    margin-top:1mm;
+  }
+  .arrow-block {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1mm;
+  }
+  .arrow-line {
+    display:flex;
+    align-items:center;
+    gap:0;
+  }
+  .arrow-line .line {
+    width:38mm;
+    height:2px;
+    background:#F5A623;
+  }
+  .arrow-line .arrowhead {
+    width:0; height:0;
+    border-top:5px solid transparent;
+    border-bottom:5px solid transparent;
+    border-left:9px solid #F5A623;
+  }
+  .plane-icon {
+    font-size:13pt;
+    color:#F5A623;
+  }
+  .sep1 { border:none; border-top:.6px solid #2A4A8B; margin:0 -7mm 0; }
+  .info-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:3mm 0 3mm;
+    gap:0;
+  }
+  .info-cell label {
+    font-size:6pt;
+    color:#A0B8D8;
+    display:block;
+    margin-bottom:1mm;
+    letter-spacing:.3px;
+  }
+  .info-cell strong {
+    font-size:8.5pt;
+    font-weight:700;
+    color:#fff;
+    letter-spacing:.2px;
+  }
+  .sep2 { border:none; border-top:.4px solid #2A4A8B; margin:0 -7mm; }
+  .info-grid2 {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:3mm 0 4mm;
+    gap:0;
+  }
+
+  .leg-divider {
+    border:none;
+    border-top:1px dashed #F5A623;
+    margin:0 5mm;
+  }
+
+  .notes-section {
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .notes-title {
+    font-family:'Noto Naskh Arabic',serif;
+    font-size:10pt;
+    font-weight:700;
+    color:#111;
+    text-align:right;
+    margin-bottom:2mm;
+  }
+  .note-item {
+    font-family:'Noto Naskh Arabic',serif;
+    font-size:6.5pt;
+    color:#111;
+    text-align:right;
+    direction:rtl;
+    line-height:1.6;
+    margin-bottom:.5mm;
+  }
+  .support-divider {
+    border:none;
+    border-top:1px solid #CCCCCC;
+    margin:2mm 0;
+  }
+  .support-title {
+    font-family:'Noto Naskh Arabic',serif;
+    font-size:8pt;
+    font-weight:700;
+    color:#111;
+    text-align:right;
+    direction:rtl;
+    margin-bottom:1mm;
+  }
+  .support-item {
+    font-family:'Noto Naskh Arabic',serif;
+    font-size:7.5pt;
+    color:#222;
+    text-align:right;
+    direction:rtl;
+    line-height:1.8;
+  }
+
+  .ad-box {
+    border:2.5px solid #F5A623;
+    border-radius:3mm;
+    overflow:hidden;
+    margin-top:3mm;
+    position:relative;
+  }
+  .ad-box img {
+    width:100%;
+    display:block;
+  }
+  .ad-label {
+    position:absolute;
+    top:3px; right:6px;
+    font-size:6pt;
+    color:rgba(255,255,255,.7);
+    font-family:'Noto Naskh Arabic',serif;
+  }
+  .connector {}
+</style>
+</head>
+<body>
+<div class="ticket">
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="agency-name">Fly Ticket Travel Agency</span>
+    <div class="logo"><img src="flyticket_logo.png" alt="FlyTicket Logo"></div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PASSENGER INFO -->
+  <div class="passenger-row">
+    <div class="pax-block">
+      <label>نام مسافر / Passenger Name</label>
+      <strong>FT_PASSENGER_NAME</strong>
+    </div>
+    <div class="pax-block" style="text-align:right;">
+      <label>شماره پاسپورت / Passport No.</label>
+      <strong>FT_PASSPORT</strong>
+    </div>
+  </div>
+
+  <hr class="divider-dashed">
+
+  <!-- OUTBOUND FLIGHT CARD -->
+  <div class="flight-card">
+    <div class="card-header">
+      <span>OUTBOUND FLIGHT</span>
+      <span>ROUND-TRIP</span>
+      <span>REF: FT_REF_OUT</span>
+    </div>
+    <div class="card-body">
+      <div class="route-row">
+        <div class="airport">
+          <span class="iata">IKA</span>
+          <span class="apt-name">Imam Khomeini Intl</span>
+          <span class="apt-name">Tehran, Iran</span>
+        </div>
+        <div class="arrow-block">
+          <span class="plane-icon">✈</span>
+          <div class="arrow-line">
+            <div class="line"></div>
+            <div class="arrowhead"></div>
+          </div>
+        </div>
+        <div class="airport" style="text-align:right;">
+          <span class="iata">TBS</span>
+          <span class="apt-name">Tbilisi Intl Airport</span>
+          <span class="apt-name">Tbilisi, Georgia</span>
+        </div>
+      </div>
+      <hr class="sep1">
+      <div class="info-grid">
+        <div class="info-cell">
+          <label>AIRLINE</label>
+          <strong>VARESH</strong>
+        </div>
+        <div class="info-cell">
+          <label>FLIGHT</label>
+          <strong>>6808<</strong>
+        </div>
+        <div class="info-cell">
+          <label>DATE</label>
+          <strong>FT_DATE_OUT</strong>
+        </div>
+        <div class="info-cell">
+          <label>TIME</label>
+          <strong>FT_TIME_OUT</strong>
+        </div>
+      </div>
+      <hr class="sep2">
+      <div class="info-grid2">
+        <div class="info-cell">
+          <label>CLASS</label>
+          <strong><span>ECONOMY CLASS</span></strong>
+        </div>
+        <div class="info-cell">
+          <label>BAGGAGE</label>
+          <strong><strong>OK / 20 kg</strong></strong>
+        </div>
+        <div class="info-cell">
+          <label>STATUS</label>
+          <strong>CONFIRMED</strong>
+        </div>
+        <div class="info-cell">
+          <label>PRICE</label>
+          <strong>174,300,000 IRR</strong>
+        </div>
+      </div>
+    </div><!-- card-body -->
+  </div>
+
+  <hr class="leg-divider">
+
+  <!-- RETURN FLIGHT CARD -->
+  <div class="flight-card">
+    <div class="card-header">
+      <span>RETURN FLIGHT</span>
+      <span>ROUND-TRIP</span>
+      <span>REF: FT_REF_RET</span>
+    </div>
+    <div class="card-body">
+      <div class="route-row">
+        <div class="airport">
+          <span class="iata">TBS</span>
+          <span class="apt-name">Tbilisi Intl Airport</span>
+          <span class="apt-name">Tbilisi, Georgia</span>
+        </div>
+        <div class="arrow-block">
+          <span class="plane-icon">✈</span>
+          <div class="arrow-line">
+            <div class="line"></div>
+            <div class="arrowhead"></div>
+          </div>
+        </div>
+        <div class="airport" style="text-align:right;">
+          <span class="iata">IKA</span>
+          <span class="apt-name">Imam Khomeini Intl</span>
+          <span class="apt-name">Tehran, Iran</span>
+        </div>
+      </div>
+      <hr class="sep1">
+      <div class="info-grid">
+        <div class="info-cell">
+          <label>AIRLINE</label>
+          <strong>VARESH</strong>
+        </div>
+        <div class="info-cell">
+          <label>FLIGHT</label>
+          <strong>>6809<</strong>
+        </div>
+        <div class="info-cell">
+          <label>DATE</label>
+          <strong>FT_DATE_RET</strong>
+        </div>
+        <div class="info-cell">
+          <label>TIME</label>
+          <strong>FT_TIME_RET</strong>
+        </div>
+      </div>
+      <hr class="sep2">
+      <div class="info-grid2">
+        <div class="info-cell">
+          <label>CLASS</label>
+          <strong><span>ECONOMY CLASS</span></strong>
+        </div>
+        <div class="info-cell">
+          <label>BAGGAGE</label>
+          <strong><strong>OK / 20 kg</strong></strong>
+        </div>
+        <div class="info-cell">
+          <label>STATUS</label>
+          <strong>CONFIRMED</strong>
+        </div>
+        <div class="info-cell">
+          <label>PRICE</label>
+          <strong>184,000,000 IRR</strong>
+        </div>
+      </div>
+    </div><!-- card-body -->
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes-section">
+    <div>
+      <p class="notes-title">شرایط و قوانین / Terms & Conditions</p>
+      <p class="note-item">• بلیت غیرقابل استرداد و غیرقابل انتقال می‌باشد.</p>
+      <p class="note-item">• مسافر باید ۲ ساعت قبل از پرواز در فرودگاه حاضر باشد.</p>
+      <p class="note-item">• مدارک شناسایی معتبر الزامی است.</p>
+      <p class="note-item">• This ticket is non-refundable and non-transferable.</p>
+      <p class="note-item">• Passenger must check in 2 hours before departure.</p>
+    </div>
+    <div>
+      <hr class="support-divider">
+      <p class="support-title">پشتیبانی / Support</p>
+      <p class="support-item">📞 +995 XXX XXX XXX</p>
+      <p class="support-item">✉️ support@flyticket724.ir</p>
+      <p class="support-item">🌐 flyticket724.ir</p>
+    </div>
+
+    <div class="ad-box">
+      <img src="flyticket_ad.png" alt="Advertisement">
+      <span class="ad-label">تبلیغات</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
